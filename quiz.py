@@ -7,9 +7,9 @@ import numpy as np
 def preprocessing():
 
     # read all CSV files
-    hp1 = pd.read_csv('Harry Potter 1.csv', delimiter = ";")
-    hp2 = pd.read_csv('Harry Potter 2.csv', delimiter = ";")
-    hp3 = pd.read_csv('Harry Potter 3.csv', delimiter = ";")
+    hp1 = pd.read_csv('dataset/Harry Potter 1.csv', delimiter = ";")
+    hp2 = pd.read_csv('dataset/Harry Potter 2.csv', delimiter = ";")
+    hp3 = pd.read_csv('dataset/Harry Potter 3.csv', delimiter = ";")
 
     # unify column names
     hp3.columns = ["Character", "Sentence"]

@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 # refining dataframe #
 
 # read the files
-hp = pd.read_csv('Characters.csv', delimiter = ";")
+hp = pd.read_csv('dataset/Characters.csv', delimiter = ";")
 
 # reduce the dataframe to the necessary size
 hp = hp[['Gender', 'House', 'Blood status', 'Hair colour', 'Eye colour', 'Loyalty']]
