@@ -11,10 +11,10 @@ def preprocessing():
     hp2 = pd.read_csv('Harry Potter 2.csv', delimiter = ";")
     hp3 = pd.read_csv('Harry Potter 3.csv', delimiter = ";")
 
-    # Unify column names
+    # unify column names
     hp3.columns = ["Character", "Sentence"]
 
-    # Unify characters
+    # unify characters
     # all character names are capitalize and have no spaces at the beggining and end
     hp1["Character"] = hp1["Character"].str.lower().str.strip().str.title()
     hp2["Character"] = hp2["Character"].str.lower().str.strip().str.title()
@@ -88,7 +88,7 @@ def answer_evaluation(answer, character):
     if(answer == character):
         return True
     
-    # answ1er in name
+    # answer in name
     if((len(answer) > 3) and (answer in character)):
         return True
     
@@ -96,7 +96,7 @@ def answer_evaluation(answer, character):
     if(distance.levenshtein(character, answer) < 4):
         return True
     
-    # synominous names
+    # synonymous names
     if((answer and character) in ["draco", "malfoy"]):
         return True
     elif((answer and character) in ["mrs. weasley", "molly", "molly weasley"]):
@@ -115,7 +115,7 @@ def answer_evaluation(answer, character):
 def quote_quiz(data, n=10):
     """Performs the Harry Potter Quote Quiz"""
     
-    # safe the movie names
+    # save the movie names
     film_names = ("Harry Potter and the Philosopher’s Stone", "Harry Potter and the Chamber of Secrets", "Harry Potter and the Prisoner of Azkaban")
     
     score = 0
