@@ -24,8 +24,8 @@ hp["Blood_status"] = hp["Blood_status"].replace(["Pure-blood or Half-blood", "
 hp["Blood_status"] = hp["Blood_status"].str.strip(']').str.strip('[')
 
 # remove rows with certain labels, which in this case are outliers
-ls1 = ["Unknown", "Part-Human (Half-giant)", "Quarter-Veela", "Part-Goblin", "Squib", "Muggle"]
-for i in ls1:
+outlier1 = ["Unknown", "Part-Human (Half-giant)", "Quarter-Veela", "Part-Goblin", "Squib", "Muggle"]
+for i in outlier1:
     hp = hp.loc[hp['Blood_status'] != i]
 
 # unit ambiguous labels to one label
@@ -37,8 +37,8 @@ hp["Hair_colour"] = hp["Hair_colour"].replace(["Black", "Jet-black", "Colourless
 hp["Hair_colour"] = hp["Hair_colour"].replace(["Mousy brown", "Reddish-brown", "Tawny", "Mousy", "Light brown flecked with grey"], "Brown")
 
 # remove rows with certain labels, which in this case are outliers
-ls2 = ["Variable", "Green"]
-for i in ls2:
+outlier2 = ["Variable", "Green"]
+for i in outlier2:
     hp = hp.loc[hp['Hair_colour'] != i]
 
 # unit ambiguous labels to one label
@@ -49,8 +49,8 @@ hp["Eye_colour"] = hp["Eye_colour"].replace(["Bright Blue", "Grey/Blue[", "Aston
 hp["Eye_colour"] = hp["Eye_colour"].replace(["Pale silvery", "Silvery", "Dark Grey"], "Grey")
 
 # remove rows with certain labels, which in this case are outliers
-ls3 = ["One dark, one electric blue", "Pale, freckled", "Yellowish", "Yellow"]
-for i in ls3:
+outlier3 = ["One dark, one electric blue", "Pale, freckled", "Yellowish", "Yellow"]
+for i in outlier3:
     hp = hp.loc[hp['Eye_colour'] != i]
 
 # unit ambiguous labels to one label
@@ -61,8 +61,8 @@ hp["Loyalty"] = hp["Loyalty"].replace(["Minister of Magic"], "Ministry of Magic"
 hp["Loyalty"] = hp["Loyalty"].replace(["Hogwarts School of Witchcraft and Wizardry"], "Hogwarts School")
 
 # remove rows with certain labels, which in this case are outliers
-ls4 = ["Gellert Grindelwald's Acolytes"]
-for i in ls4:
+outlier4 = ["Gellert Grindelwald's Acolytes"]
+for i in outlier4:
     hp = hp.loc[hp['Loyalty'] != i]
 
 # %%
@@ -107,20 +107,20 @@ hufflepuff_gender = [] # number of ['Female', 'Male'] in Hufflepuff
 ravenclaw_gender = []  # number of ['Female', 'Male'] in Ravenclaw
 slytherin_gender = []  # number of ['Female', 'Male'] in Slytherin
 
-for i in houselist: 
-    for j in gender:
+for house in houselist: 
+    for gen in gender:
     
-        # reduce the dataframe from hp to df so that the column is i and row is j
-        df = hp.loc[(hp['House'] == i) & (hp['Gender'] == j)]
+        # reduce the dataframe from hp to df so that the column is house and row is gen
+        df = hp.loc[(hp['House'] == house) & (hp['Gender'] == gen)]
         num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
             
-        if i == 'Gryffindor':
+        if house == 'Gryffindor':
             gryffindor_gender.append(num_row_df) # e.g. num_row_df = number of i = 'Gryffindor, j = 'Female'
-        elif i == 'Hufflepuff':
+        elif house == 'Hufflepuff':
             hufflepuff_gender.append(num_row_df)
-        elif i == 'Ravenclaw':
+        elif house == 'Ravenclaw':
             ravenclaw_gender.append(num_row_df)
-        elif i == 'Slytherin':
+        elif house == 'Slytherin':
             slytherin_gender.append(num_row_df)
 
 gryffindor.append(gryffindor_gender) # list of number of ['Female', 'Male'] in Gryffindor is appended to the list gryffindor with index of 0
@@ -136,20 +136,20 @@ hufflepuff_bloodstatus = [] # number of people with ['Half-blood', 'Muggle-born'
 ravenclaw_bloodstatus = []  # number of people with ['Half-blood', 'Muggle-born', 'Pure-blood'] in Ravenclaw
 slytherin_bloodstatus = []  # number of people with ['Half-blood', 'Muggle-born', 'Pure-blood'] in Slytherin
 
-for i in houselist: 
-    for j in bloodstatus:
+for house in houselist: 
+    for blood in bloodstatus:
         
-        # reduce the dataframe from hp to df so that the column is i and row is j
-        df = hp.loc[(hp['House'] == i) & (hp['Blood_status'] == j)]
+        # reduce the dataframe from hp to df so that the column is house and row is blood
+        df = hp.loc[(hp['House'] == house) & (hp['Blood_status'] == blood)]
         num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
             
-        if i == 'Gryffindor':
+        if house == 'Gryffindor':
             gryffindor_bloodstatus.append(num_row_df)
-        elif i == 'Hufflepuff':
+        elif house == 'Hufflepuff':
             hufflepuff_bloodstatus.append(num_row_df)
-        elif i == 'Ravenclaw':
+        elif house == 'Ravenclaw':
             ravenclaw_bloodstatus.append(num_row_df)
-        elif i == 'Slytherin':
+        elif house == 'Slytherin':
             slytherin_bloodstatus.append(num_row_df)
 
 gryffindor.append(gryffindor_bloodstatus) # list gryffindor_bloodstatus is appended to the list gryffindor with index of 1
@@ -165,20 +165,20 @@ hufflepuff_haircolour = [] # number of people with the hair colour of ['Bald', '
 ravenclaw_haircolour = []  # number of people with the hair colour of ['Bald', 'Blonde', 'Brown', 'Dark', 'Red', 'Silver / White / Grey'] in Ravenclaw
 slytherin_haircolour = []  # number of people with the hair colour of ['Bald', 'Blonde', 'Brown', 'Dark', 'Red', 'Silver / White / Grey'] in Slytherin
 
-for i in houselist: 
-    for j in haircolour:
+for house in houselist: 
+    for hair in haircolour:
         
-        # reduce the dataframe from hp to df so that the column is i and row is j
-        df = hp.loc[(hp['House'] == i) & (hp['Hair_colour'] == j)]
+        # reduce the dataframe from hp to df so that the column is house and row is hair
+        df = hp.loc[(hp['House'] == house) & (hp['Hair_colour'] == hair)]
         num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
             
-        if i == 'Gryffindor':
+        if house == 'Gryffindor':
             gryffindor_haircolour.append(num_row_df)
-        elif i == 'Hufflepuff':
+        elif house == 'Hufflepuff':
             hufflepuff_haircolour.append(num_row_df)
-        elif i == 'Ravenclaw':
+        elif house == 'Ravenclaw':
             ravenclaw_haircolour.append(num_row_df)
-        elif i == 'Slytherin':
+        elif house == 'Slytherin':
             slytherin_haircolour.append(num_row_df)
 
 gryffindor.append(gryffindor_haircolour) # list gryffindor_haircolour is appended to the list gryffindor with index of 2
@@ -194,20 +194,20 @@ hufflepuff_eyecolour = [] # number of people with the eye colour of ['Blue', 'Br
 ravenclaw_eyecolour = []  # number of people with the eye colour of ['Blue', 'Brown', 'Dark', 'Green', 'Grey', 'Hazel'] in Ravenclaw
 slytherin_eyecolour = []  # number of people with the eye colour of ['Blue', 'Brown', 'Dark', 'Green', 'Grey', 'Hazel'] in Slytherin
 
-for i in houselist: 
-    for j in eyecolour:
+for house in houselist: 
+    for eye in eyecolour:
         
-        # reduce the dataframe from hp to df so that the column is i and row is j
-        df = hp.loc[(hp['House'] == i) & (hp['Eye_colour'] == j)]
+        # reduce the dataframe from hp to df so that the column is house and row is eye
+        df = hp.loc[(hp['House'] == house) & (hp['Eye_colour'] == eye)]
         num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
             
-        if i == 'Gryffindor':
+        if house == 'Gryffindor':
             gryffindor_eyecolour.append(num_row_df)
-        elif i == 'Hufflepuff':
+        elif house == 'Hufflepuff':
             hufflepuff_eyecolour.append(num_row_df)
-        elif i == 'Ravenclaw':
+        elif house == 'Ravenclaw':
             ravenclaw_eyecolour.append(num_row_df)
-        elif i == 'Slytherin':
+        elif house == 'Slytherin':
             slytherin_eyecolour.append(num_row_df)
 
 gryffindor.append(gryffindor_eyecolour) # list gryffindor_eyecolour is appended to the list gryffindor with index of 3
@@ -223,20 +223,20 @@ hufflepuff_loyalty = [] # number of supporter of ["Dumbledore's Army", 'Hogwarts
 ravenclaw_loyalty = []  # number of supporter of ["Dumbledore's Army", 'Hogwarts School', 'Lord Voldemort', 'Ministry of Magic'] in Ravenclaw
 slytherin_loyalty = []  # number of supporter of ["Dumbledore's Army", 'Hogwarts School', 'Lord Voldemort', 'Ministry of Magic'] in Slytherin
 
-for i in houselist: 
-    for j in loyalty:
+for house in houselist: 
+    for loyal in loyalty:
     
-        # reduce the datafram from hp to df so that the column is i and row is j
-        df = hp.loc[(hp['House'] == i) & (hp['Loyalty'] == j)]
+        # reduce the dataframe from hp to df so that the column is house and row is loyal
+        df = hp.loc[(hp['House'] == house) & (hp['Loyalty'] == loyal)]
         num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
             
-        if i == 'Gryffindor':
+        if house == 'Gryffindor':
             gryffindor_loyalty.append(num_row_df)
-        elif i == 'Hufflepuff':
+        elif house == 'Hufflepuff':
             hufflepuff_loyalty.append(num_row_df)
-        elif i == 'Ravenclaw':
+        elif house == 'Ravenclaw':
             ravenclaw_loyalty.append(num_row_df)
-        elif i == 'Slytherin':
+        elif house == 'Slytherin':
             slytherin_loyalty.append(num_row_df)
 
 gryffindor.append(gryffindor_loyalty) # list gryffindor_loyalty is appended to the list gryffindor with index of 4
@@ -249,54 +249,57 @@ def plot(n):
     '''plot is about gender, bloodstatus, haircolour, eyecolour, or loyalty depending on the house.
     the plot is about gender when n= 0, bloodstatus when n= 1, haircolour when n= 2, eyecolour when n= 3, loyalty when n = 4'''
 
-    fig, axs = plt.subplots(2, 2)
+    fig, axs = plt.subplots(nrows = 2, ncols = 2, figsize=(10,10))
     try: 
-        for i in [0,1]:
-            for j in [0,1]:
-                        if i == 0 and j == 0:    # upper left plot
-                            x = gryffindor[n]     # e.g. if n = 0, it will be indicating to list of ['Female', 'Male'] in Gryffindor, 
-                            title = 'Gryffindor'  # which is in index 0 in the list gryffindor
-                        elif i == 0 and j == 1:  # upper right plot
+        for row in [0,1]:
+            for col in [0,1]:
+                        if row == 0 and col == 0:   # upper left plot
+                            x = gryffindor[n]       # e.g. if n = 0, it will be indicating to list of ['Female', 'Male'] in Gryffindor, 
+                            title = 'Gryffindor'    # which is in index 0 in the list gryffindor
+                        elif row == 0 and col == 1: # upper right plot
                             x = hufflepuff[n]
                             title = 'Hufflepuff'
-                        elif i == 1 and j == 0:  # botton left plot
+                        elif row == 1 and col == 0: # botton left plot
                             x = ravenclaw[n]
                             title = 'Ravenclaw'
-                        else:                    # bottom right plot
+                        else:                       # bottom right plot
                             x = slytherin[n]
                             title = 'Slytherin'
 
-                        axs[i, j].pie(x, shadow=True, startangle = 90) # create pie plots
-                        axs[i, j].set_title(title) 
+                        axs[row, col].pie(x, shadow=True, startangle = 90) # create pie plots
+                        axs[row, col].set_title(title) 
 
             if n == gender_index: 
                 fig.legend(fig,      # the line objects
                     labels=gender,   # the labels for each line
                     loc="center",    # position of legend
                     borderaxespad=0.1,    # small spacing around legend box
-                    title="Gender"   # title for the legend
+                    title="Gender",   # title for the legend
+                    fontsize=12       # to make the legend fit the plot
                     )
             elif n == bloodstatus_index:
                 fig.legend(fig,         # the line objects
                     labels=bloodstatus, # the labels for each line
                     loc="center",       # position of legend
                     borderaxespad=0.1,  # small spacing around legend box
-                    title="Bloodstatus" # title for the legend
+                    title="Bloodstatus",   # title for the legend
+                    fontsize=12         # to make the legend fit the plot
                     )
             elif n == haircolour_index:
                 fig.legend(fig,         # the line objects
                     labels=haircolour,  # the labels for each line
                     loc="center",       # position of legend
                     borderaxespad=0.1,  # small spacing around legend box
-                    title="Haircolour", # title for the legend
-                    fontsize=8          # to make the legend fit the plot
+                    title="Haircolour",   # title for the legend
+                    fontsize=12         # to make the legend fit the plot
                     )
             elif n == eyecolour_index:
                 fig.legend(fig,        # the line objects
                     labels=eyecolour,  # the labels for each line
                     loc="center",      # position of legend
                     borderaxespad=0.1, # small spacing around legend box
-                    title="Eyecolour"  # title for the legend
+                    title="Eyecolour",   # title for the legend
+                    fontsize=12        # to make the legend fit the plot
                     )
             elif n == loyalty_index:
                 fig.legend(fig,        # the line objects
@@ -304,7 +307,7 @@ def plot(n):
                     loc="center",      # position of legend
                     borderaxespad=0.1, # small spacing around legend box
                     title="Loyalty",   # title for the legend
-                    fontsize=8         # to make the legend fit the plot
+                    fontsize=12        # to make the legend fit the plot
                     )
     except IndexError:
         print("n should be in range from 0 to 4.") # in case n is out of range from 0 to 4
@@ -328,7 +331,4 @@ plot(3)
 plot(4)
 
 plt.show()
-# %%
-
-
 
