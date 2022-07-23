@@ -126,7 +126,7 @@ def quote_quiz(data, n=10):
         
     # asks the quote questions and count points
     for q in quotes: 
-        answer = input(f"Who said the follwing? \n'{q[0]}'")
+        answer = input(f"Who said the following? \n'{q[0]}'")
         print(f"Your answer: {answer}")
         
         if(answer_evaluation(answer, q[1])): 
@@ -135,7 +135,7 @@ def quote_quiz(data, n=10):
         else:
             print(f"Your answer was wrong! Actually, {q[1].title()} said that\n")
         
-        film = int(input("Bonus: From which movie is the quote?"))
+        film = int(input("Bonus: From which movie is the quote? Pick 1 for Harry Potter and the Philosopher’s Stone, 2 for Harry Potter and the Chamber of Secrets, 3 for Harry Potter and the Prisoner of Azkaban."))
         print(f"Your answer: {film}")
         
         
