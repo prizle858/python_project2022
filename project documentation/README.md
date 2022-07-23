@@ -1,39 +1,21 @@
-# Project Title
+# Harry Oh My Harry
 
-Simple overview of use/purpose.
-
-## Description
-
-An in-depth paragraph about your project and overview of use.
+- First we will give you a Quote quiz, testing whether you are a true fan or not. In our database we have files providing the script for the first three movies. We would draw quotes from that, ensuring that it is long enough, such that it is possible to recognize the lines. Furthermore, we also take spelling mistakes and name synomyms into account. 
+- After you pass the test successfully, you can then have a look at several plots visualizing the line distribution in the different movies; lines spoken by Hermoine, Ron and Harry;  the distribution of gender, bloodstatus, hair colour, eye colour and loyalty for each house.
 
 ## Getting Started
 
-### Dependencies
+You will need to install following libraries for implementation: pandas, numpy, matplotlib, random, distance
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
-
-### Installing
-
-* How/where to download your program
-* Any modifications needed to be made to files/folders
-
-### Executing program
-
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
+## Guide through the folders
+- project documention: current folder, which contains README.md and projectJourney.md
+ dataset: contains all dataset in csv form, e.g. Characters.csv, Harry Potter 1.csv, Harry Potter 2.csv, Harry Potter 3.csv
+- rest: plotting.py and quiz.py will be imported to main.ipynb, which is the only thing you need to run in order to participate in our quiz!
 
 ## Authors
 
-Jessica Simon
-Wookyung Lee
-
-## License
-
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+- Jessica Simon
+- Wookyung Lee
 
 ## Resources
 
