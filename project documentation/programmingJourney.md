@@ -20,6 +20,8 @@ We definitely were able to deepen our understanding of the pandas and mathplotli
 ## Challenges and our Solutions
 
 ## Further additions
+- have the same colour for the same character in line distribution 
+- add also the rest of the movie scripts to the data
 
 ## Work distribution
 ### Jessica
