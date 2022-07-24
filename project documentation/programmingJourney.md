@@ -19,6 +19,7 @@ We definitely were able to deepen our understanding of the pandas and mathplotli
 
 ## Challenges and our Solutions
 
+
 ## Further additions
 - have the same colour for the same character in line distribution 
 - add also the rest of the movie scripts to the data
@@ -34,4 +35,4 @@ We definitely were able to deepen our understanding of the pandas and mathplotli
 - read the dataset from a CSV file (Characters.csv) and in the end save cleaned data 
 - find a way to deal with missing values (remove, replace, rename)
 - group the dataset into meaningful units (gender, houses, blood status, eye colour, hair colours, loyalty)
-- plot distribution of individual variables (gender, blood status, eye colour, hair colours, loyalty) as pie plots
+- plot of distribution of individual variables (gender, blood status, eye colour, hair colours, loyalty) as pie plots
