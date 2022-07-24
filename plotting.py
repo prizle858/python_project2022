@@ -1,13 +1,10 @@
-# %%
 # import all necessary libaries
 
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# %%
-# refining dataframe #
-
+# refining dataframe
 # read the files
 hp = pd.read_csv('dataset/Characters.csv', delimiter = ";")
 
@@ -65,9 +62,7 @@ outlier4 = ["Gellert Grindelwald's Acolytes"]
 for i in outlier4:
     hp = hp.loc[hp['Loyalty'] != i]
 
-# %%
-# preparing lists to insert the data in order of 'Gender', 'Blood status', 'Hair colour', 'Eye colour', 'Loyalty' #
-
+# preparing lists to insert the data in order of 'Gender', 'Blood status', 'Hair colour', 'Eye colour', 'Loyalty' 
 # create 2D house lists of traits in each hous [['Gender'], ['Blood status'], ['Hair colour'], ['Eye colour'], ['Loyalty']]
 gryffindor = [] 
 hufflepuff = [] 
@@ -99,9 +94,7 @@ loyalty_index = 4
 loyalty = np.unique(hp.Loyalty.values.tolist())
 loyalty = [x for x in loyalty if str(x) != 'nan'] # remove 'nan'
 
-# %%
-# inserting data into 2D list for gender (index 0) #
-
+# inserting data into 2D list for gender (index 0) 
 gryffindor_gender = [] # number of ['Female', 'Male'] in Gryffindor
 hufflepuff_gender = [] # number of ['Female', 'Male'] in Hufflepuff
 ravenclaw_gender = []  # number of ['Female', 'Male'] in Ravenclaw
@@ -128,9 +121,8 @@ hufflepuff.append(hufflepuff_gender) # list of number of ['Female', 'Male'] in H
 ravenclaw.append(ravenclaw_gender)   # list of number of ['Female', 'Male'] in Ravenclaw is appended to the list ravenclaw with index of 0
 slytherin.append(slytherin_gender)   # list of number of ['Female', 'Male'] in Slytherin is appended to the list slytherin with index of 0
 
-# %%
-# inserting data into 2D list for bloodstatus (index 1) #
 
+# inserting data into 2D list for bloodstatus (index 1) 
 gryffindor_bloodstatus = [] # number of people with ['Half-blood', 'Muggle-born', 'Pure-blood'] in Gryffindor
 hufflepuff_bloodstatus = [] # number of people with ['Half-blood', 'Muggle-born', 'Pure-blood'] in Hufflepuff
 ravenclaw_bloodstatus = []  # number of people with ['Half-blood', 'Muggle-born', 'Pure-blood'] in Ravenclaw
@@ -157,9 +149,7 @@ hufflepuff.append(hufflepuff_bloodstatus) # list hufflepuff_bloodstatus is appen
 ravenclaw.append(ravenclaw_bloodstatus)   # list ravenclaw_bloodstatus is appended to the list ravenclaw with index of 1
 slytherin.append(slytherin_bloodstatus)   # list slytherin_bloodstatus is appended to the list slytherin with index of 1
 
-# %%
-# inserting data into 2D list for haircolour (index 2) #
-
+# inserting data into 2D list for haircolour (index 2) 
 gryffindor_haircolour = [] # number of people with the hair colour of ['Bald', 'Blonde', 'Brown', 'Dark', 'Red', 'Silver / White / Grey'] in Gryffindor
 hufflepuff_haircolour = [] # number of people with the hair colour of ['Bald', 'Blonde', 'Brown', 'Dark', 'Red', 'Silver / White / Grey'] in Hufflepuff
 ravenclaw_haircolour = []  # number of people with the hair colour of ['Bald', 'Blonde', 'Brown', 'Dark', 'Red', 'Silver / White / Grey'] in Ravenclaw
@@ -186,9 +176,7 @@ hufflepuff.append(gryffindor_haircolour) # list hufflepuff_haircolour is appende
 ravenclaw.append(gryffindor_haircolour)  # list ravenclaw_haircolour is appended to the list ravenclaw with index of 2
 slytherin.append(gryffindor_haircolour)  # list slytherin_haircolour is appended to the list slytherin with index of 2
 
-# %%
-# inserting data into 2D list for haircolour (index 3) #
-
+# inserting data into 2D list for haircolour (index 3) 
 gryffindor_eyecolour = [] # number of people with the eye colour of  ['Blue', 'Brown', 'Dark', 'Green', 'Grey', 'Hazel'] in Gryffindor
 hufflepuff_eyecolour = [] # number of people with the eye colour of ['Blue', 'Brown', 'Dark', 'Green', 'Grey', 'Hazel'] in Hufflepuff
 ravenclaw_eyecolour = []  # number of people with the eye colour of ['Blue', 'Brown', 'Dark', 'Green', 'Grey', 'Hazel'] in Ravenclaw
@@ -215,9 +203,7 @@ hufflepuff.append(gryffindor_eyecolour) # list hufflepuff_eyecolour is appended 
 ravenclaw.append(gryffindor_eyecolour)  # list ravenclaw_eyecolour is appended to the list ravenclaw with index of 3
 slytherin.append(gryffindor_eyecolour)  # list slytherin_eyecolour is appended to the list slytherin with index of 3
 
-# %%
-# inserting data into 2D list for haircolour (index 4) #
-
+# inserting data into 2D list for haircolour (index 4) 
 gryffindor_loyalty = [] # number of supporter of ["Dumbledore's Army", 'Hogwarts School', 'Lord Voldemort', 'Ministry of Magic'] in Gryffindor
 hufflepuff_loyalty = [] # number of supporter of ["Dumbledore's Army", 'Hogwarts School', 'Lord Voldemort', 'Ministry of Magic'] in Hufflepuff
 ravenclaw_loyalty = []  # number of supporter of ["Dumbledore's Army", 'Hogwarts School', 'Lord Voldemort', 'Ministry of Magic'] in Ravenclaw
@@ -244,7 +230,6 @@ hufflepuff.append(hufflepuff_loyalty) # list hufflepuff_loyalty is appended to t
 ravenclaw.append(ravenclaw_loyalty)   # list ravenclaw_loyalty is appended to the list ravenclaw with index of 4
 slytherin.append(slytherin_loyalty)   # list slytherin_loyalty is appended to the list slytherin with index of 4
 
-# %%
 def plot(n):
     '''plot is about gender, bloodstatus, haircolour, eyecolour, or loyalty depending on the house.
     the plot is about gender when n= 0, bloodstatus when n= 1, haircolour when n= 2, eyecolour when n= 3, loyalty when n = 4'''
@@ -270,52 +255,45 @@ def plot(n):
                         axs[row, col].set_title(title) 
 
             if n == gender_index: 
-                fig.legend(fig,      # the line objects
-                    labels=gender,   # the labels for each line
-                    loc="center",    # position of legend
-                    borderaxespad=0.1,    # small spacing around legend box
-                    title="Gender",   # title for the legend
-                    fontsize=12       # to make the legend fit the plot
+                fig.legend(labels=gender,   # the labels for each line
+                    loc="center",           # position of legend
+                    borderaxespad=0.1,      # small spacing around legend box
+                    title="Gender",         # title for the legend
+                    fontsize=12             # to make the legend fit the plot
                     )
             elif n == bloodstatus_index:
-                fig.legend(fig,         # the line objects
-                    labels=bloodstatus, # the labels for each line
-                    loc="center",       # position of legend
-                    borderaxespad=0.1,  # small spacing around legend box
-                    title="Bloodstatus",   # title for the legend
-                    fontsize=12         # to make the legend fit the plot
+                fig.legend(labels=bloodstatus, # the labels for each line
+                    loc="center",              # position of legend
+                    borderaxespad=0.1,         # small spacing around legend box
+                    title="Bloodstatus",       # title for the legend
+                    fontsize=12                # to make the legend fit the plot
                     )
             elif n == haircolour_index:
-                fig.legend(fig,         # the line objects
-                    labels=haircolour,  # the labels for each line
-                    loc="center",       # position of legend
-                    borderaxespad=0.1,  # small spacing around legend box
-                    title="Haircolour",   # title for the legend
-                    fontsize=12         # to make the legend fit the plot
+                fig.legend(labels=haircolour,  # the labels for each line
+                    loc="center",              # position of legend
+                    borderaxespad=0.1,         # small spacing around legend box
+                    title="Haircolour",        # title for the legend
+                    fontsize=12                # to make the legend fit the plot
                     )
             elif n == eyecolour_index:
-                fig.legend(fig,        # the line objects
-                    labels=eyecolour,  # the labels for each line
-                    loc="center",      # position of legend
-                    borderaxespad=0.1, # small spacing around legend box
-                    title="Eyecolour",   # title for the legend
-                    fontsize=12        # to make the legend fit the plot
+                fig.legend(labels=eyecolour,  # the labels for each line
+                    loc="center",             # position of legend
+                    borderaxespad=0.1,        # small spacing around legend box
+                    title="Eyecolour",        # title for the legend
+                    fontsize=12               # to make the legend fit the plot
                     )
             elif n == loyalty_index:
-                fig.legend(fig,        # the line objects
-                    labels=loyalty,    # the labels for each line
-                    loc="center",      # position of legend
-                    borderaxespad=0.1, # small spacing around legend box
-                    title="Loyalty",   # title for the legend
-                    fontsize=12        # to make the legend fit the plot
+                fig.legend(labels=loyalty,   # the labels for each line
+                    loc="center",            # position of legend
+                    borderaxespad=0.1,       # small spacing around legend box
+                    title="Loyalty",         # title for the legend
+                    fontsize=12              # to make the legend fit the plot
                     )
     except IndexError:
         print("n should be in range from 0 to 4.") # in case n is out of range from 0 to 4
        
 
-# %%
 # use explode, explode = (0.05, 0.05, 0.05, 0.05, 0.05)
-
 # donut plot 
     # draw circle
     # centre_circle = plt.Circle((0, 0), 0.70, fc='black') # readjust color depending on background
@@ -323,7 +301,6 @@ def plot(n):
     # # Adding Circle in Pie chart
     # fig.gca().add_artist(centre_circle)
 
-# %%
 plot(0)
 plot(1)
 plot(2)
