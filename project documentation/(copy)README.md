@@ -8,7 +8,7 @@
 You will need to install following libraries for implementation: pandas, numpy, matplotlib, random, distance
 
 ## Guide through the folders
-- Project documention: contains a copy of README.md and programmingJourney.md
+- Project documention: current folder, which contains README.md and programmingJourney.md
 - Dataset: contains all dataset in csv form, e.g. Characters.csv, Harry Potter 1.csv, Harry Potter 2.csv, Harry Potter 3.csv
 - Rest: plotting.py and quiz.py will be imported to main.ipynb, which is the only thing you need to run in order to participate in our quiz!
 
