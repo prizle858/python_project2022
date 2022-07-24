@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def preprocessing():
-
+    """Loads and performs the preprocessing of the datasets necessary for the quiz and returns a list of the cleaned datsets """
     # read all CSV files
     hp1 = pd.read_csv('dataset/Harry Potter 1.csv', delimiter = ";")
     hp2 = pd.read_csv('dataset/Harry Potter 2.csv', delimiter = ";")
@@ -19,13 +19,17 @@ def preprocessing():
     hp1["Character"] = hp1["Character"].str.lower().str.strip().str.title()
     hp2["Character"] = hp2["Character"].str.lower().str.strip().str.title()
     hp3["Character"] = hp3["Character"].str.lower().str.strip().str.title()
-
+    
+    # resolve spelling mistake
     hp1["Character"].replace("Hermoine", "Hermione", inplace=True)
     
     return [hp1, hp2, hp3]
 
 def random_quote(data):
-    """"Returns random quote of one of the Harry Potter film scripts and the character that said that"""
+    """" Generates random quote of random movie
+    Args: data(list) - possible movies
+    Returns: tuple(quote, character, movie) - quote that has been generated, the character that said the quote, and the movie it apperead in
+    """
     
     # choose a random data set
     dataset = random.choice(data)
@@ -40,27 +44,34 @@ def random_quote(data):
     quote = dataset["Sentence"][line]
     character = dataset["Character"][line]
     
+    # monitoring whether character said something beforehand/afterwards or not
     start = True
     end = True 
+    
     # extend quote if possible
     for i in range(1, 4):        
         # extend quote if character says something beforehand
+        # make sure to not further extend if character didn't say something beforehand
         if(dataset["Character"][line-i] == character and start == True):                
             quote = dataset["Sentence"][line-i] + " " + quote
         else: 
             start = False
     
         # extend quote if character says something afterwards
+        # make sure to not further extend if character didn't say something afterwards
         if(dataset["Character"][line+i] == character and end == True):
             quote += " " + dataset["Sentence"][line+i]
-
         else: 
             end = False
            
     return quote, character, film
 
 def create_quotes(data, n=10):
-    """Creates n random quotes"""
+    """Creates n random quotes
+    Args:  data(list) - possible movies
+            n(int) - number of quotes to be generated
+    Returns: list of tuples - list of the n quotes, which are a tuple(quote, character, movie)
+    """
     quotes = []
 
     # create n random quotes
@@ -72,24 +83,32 @@ def create_quotes(data, n=10):
         while(q[0].count(" ") < 5):
             # create random quote 
             q = random_quote(data)
- 
+
+        # add sufficient quote to the list
         quotes.append(q)
     
     return quotes
 
 def answer_evaluation(answer, character):
-    # makes checking easier
+    """Checks whether answer is correct or not
+    Args:  answer(str) - given by the user
+           character(str) - correct answer
+    Returns: whether answer is correct or not
+    """
+    # avoid struggeling with capitalization and spaces at the end or beginning
     answer = answer.lower().strip()
     character = character.lower()
     
+    # to avoid single letters to strick true
     if(len(answer) < 3):
         return False
     
-    # check for correct answer
+    # check if solution and answer are identical 
     if(answer == character):
         return True
     
     # answer in name
+    # should make dealing with titles easier
     if((len(answer) > 3) and (answer in character)):
         return True
     
@@ -121,7 +140,12 @@ def answer_evaluation(answer, character):
     return False
 
 def quote_quiz(data, n=10):
-    """Performs the Harry Potter Quote Quiz"""
+    """Performs the Harry Potter Quote Quiz
+    Args:  data(list) - possible movies
+           n(int) - number of quotes to be generated
+    Returns: score(int) - number of correctly answered characters to the quotes
+             bonus(int) - number of correctly answered movies to the quotes
+    """
     
     # save the movie names
     film_names = ("Harry Potter and the Philosopher’s Stone", "Harry Potter and the Chamber of Secrets", "Harry Potter and the Prisoner of Azkaban")
@@ -134,18 +158,23 @@ def quote_quiz(data, n=10):
         
     # asks the quote questions and count points
     for q in quotes: 
+        # get user input for the character that said the quote
         answer = input(f"Who said the following? \n'{q[0]}'")
         print(f"Your answer: {answer}")
         
+        # evaluate the answer
         if(answer_evaluation(answer, q[1])): 
             print("Your answer was correct!\n")
             score += 1            
         else:
             print(f"Your answer was wrong! Actually, {q[1].title()} said that\n")
         
+        # get user input for from which movie is the quote
         film = input("Bonus: From which movie is the quote? Pick: \n1 for Harry Potter and the Philosopher’s Stone \n2 for Harry Potter and the Chamber of Secrets \n3 for Harry Potter and the Prisoner of Azkaban.")
         print(f"Your answer: {film}")
         
+        # answer needs to be a digit
+        # check whether answer is true
         if(not film.isdigit()): 
             print(f"Your answer was wrong! Actually, the quote is from movie {q[2]}: {film_names[q[2]-1]}.\n")
         elif(int(film) == q[2] and int(film)<4):
@@ -154,12 +183,17 @@ def quote_quiz(data, n=10):
         else:
             print(f"Your answer was wrong! Actually, the quote is from movie {q[2]}: {film_names[q[2]-1]}.\n")
     
+    # print the final score and bonus 
     print(f"Final score: {score} \nBonus points: {bonus}")
     
     return score, bonus
 
 def plot(data):
-    """Plots the line distribution of each movie and the amount of lines of Harry, Hermione, and Ron compared"""
+    """Plots the line distribution of each movie and the amount of lines of Harry, Hermione, and Ron compared
+    
+    Args: data(list) - movies to be considered
+    """
+    # safe the movies in seperated variables 
     hp1 = data[0]
     hp2 = data[1]
     hp3 = data[2]
@@ -202,17 +236,17 @@ def plot(data):
     wedges3, texts3, autotexts3 = ax[1,0].pie(count_hp3, autopct = lambda pct: func(pct, count_hp3))
     ax[1,0].legend(wedges3, count_hp3.index, title="Characters", loc="center left", bbox_to_anchor=(1, 0, 0.5, 1), fontsize=20, title_fontsize=25)
     
+    # change size and font of percentages in pie charts
+    plt.setp(autotexts1, size=15, weight="bold")
+    plt.setp(autotexts2, size=15, weight="bold")
+    plt.setp(autotexts3, size=15, weight="bold")
+    
     # create stacked bar plot of the total amount of lines of Harry, Ron, and Hermione for each movie
     # create the according legend
     ax[1,1].bar(["Movie 1", "Movie 2", "Movie 3"], [count_hp1.loc["Harry"], count_hp2.loc["Harry"], count_hp3.loc["Harry"]], width=0.5)
     ax[1,1].bar(["Movie 1", "Movie 2", "Movie 3"], [count_hp1.loc["Ron"], count_hp2.loc["Ron"], count_hp3.loc["Ron"]], bottom=[count_hp1.loc["Harry"], count_hp2.loc["Harry"], count_hp3.loc["Harry"]], width=0.5)
     ax[1,1].bar(["Movie 1", "Movie 2", "Movie 3"], [count_hp1.loc["Hermione"], count_hp2.loc["Hermione"], count_hp3.loc["Hermione"]], bottom=[count_hp1.loc["Harry"]+count_hp1.loc["Ron"], count_hp2.loc["Harry"]+count_hp2.loc["Ron"], count_hp3.loc["Harry"]+count_hp3.loc["Ron"]], width=0.5)
     ax[1,1].legend(["Harry", "Ron", "Hermione"], title="Character", loc="center left", bbox_to_anchor=(1, 0, 0.5, 1), fontsize=20, title_fontsize=25)
-    
-    # change size and font of percentages in pie charts
-    plt.setp(autotexts1, size=15, weight="bold")
-    plt.setp(autotexts2, size=15, weight="bold")
-    plt.setp(autotexts3, size=15, weight="bold")
     
     # hide yaxis of stacked bar plot
     # higher font size of x-ticks
