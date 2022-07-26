@@ -230,6 +230,13 @@ hufflepuff.append(hufflepuff_loyalty) # list hufflepuff_loyalty is appended to t
 ravenclaw.append(ravenclaw_loyalty)   # list ravenclaw_loyalty is appended to the list ravenclaw with index of 4
 slytherin.append(slytherin_loyalty)   # list slytherin_loyalty is appended to the list slytherin with index of 4
 
+def legend(fig, label):
+    fig.legend(labels=label,   # the labels for each line
+                    loc="center",            # position of legend
+                    borderaxespad=0.1,       # small spacing around legend box
+                    fontsize=12              # to make the legend fit the plot
+                    )
+
 def plot(n):
     '''plot is about gender, bloodstatus, haircolour, eyecolour, or loyalty depending on the house.
     the plot is about gender when n= 0, bloodstatus when n= 1, haircolour when n= 2, eyecolour when n= 3, loyalty when n = 4'''
@@ -255,40 +262,20 @@ def plot(n):
                         axs[row, col].set_title(title) 
 
             if n == gender_index: 
-                fig.legend(labels=gender,   # the labels for each line
-                    loc="center",           # position of legend
-                    borderaxespad=0.1,      # small spacing around legend box
-                    title="Gender",         # title for the legend
-                    fontsize=12             # to make the legend fit the plot
-                    )
+                fig.suptitle("Gender distribution", fontsize=15)
+                legend(fig, gender)
             elif n == bloodstatus_index:
-                fig.legend(labels=bloodstatus, # the labels for each line
-                    loc="center",              # position of legend
-                    borderaxespad=0.1,         # small spacing around legend box
-                    title="Bloodstatus",       # title for the legend
-                    fontsize=12                # to make the legend fit the plot
-                    )
+                fig.suptitle("Blood status distribution", fontsize=15)
+                legend(fig, bloodstatus)
             elif n == haircolour_index:
-                fig.legend(labels=haircolour,  # the labels for each line
-                    loc="center",              # position of legend
-                    borderaxespad=0.1,         # small spacing around legend box
-                    title="Haircolour",        # title for the legend
-                    fontsize=12                # to make the legend fit the plot
-                    )
+                fig.suptitle("Hair colour distribution", fontsize=15)
+                legend(fig, haircolour)
             elif n == eyecolour_index:
-                fig.legend(labels=eyecolour,  # the labels for each line
-                    loc="center",             # position of legend
-                    borderaxespad=0.1,        # small spacing around legend box
-                    title="Eyecolour",        # title for the legend
-                    fontsize=12               # to make the legend fit the plot
-                    )
+                fig.suptitle("Eye colour distribution", fontsize=15)
+                legend(fig, eyecolour)
             elif n == loyalty_index:
-                fig.legend(labels=loyalty,   # the labels for each line
-                    loc="center",            # position of legend
-                    borderaxespad=0.1,       # small spacing around legend box
-                    title="Loyalty",         # title for the legend
-                    fontsize=12              # to make the legend fit the plot
-                    )
+                fig.suptitle("Loyalty distribution", fontsize=15)
+                legend(fig, loyalty)
     except IndexError:
         print("n should be in range from 0 to 4.") # in case n is out of range from 0 to 4
        
@@ -308,4 +295,3 @@ plot(3)
 plot(4)
 
 plt.show()
-
