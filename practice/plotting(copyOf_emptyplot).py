@@ -79,8 +79,9 @@ gender = [x for x in gender if str(x) != 'nan'] # remove 'nan'
 
 bloodstatus_index = 1
 bloodstatus = np.unique(hp.Blood_status.values.tolist())
-bloodstatus = bloodstatus[0:4] # remove 'Pure-blood or half-blood' and 'nan'
-bloodstatus = np.delete(bloodstatus, 2, 0) # remove 'Muggle-born or half-blood'
+bloodstatus = [x for x in bloodstatus if not ' or ' in str(x)] # remove strings with ' or '
+bloodstatus = [x for x in bloodstatus if not ' or ' in str(x)] # remove strings with ' or '
+bloodstatus = [x for x in bloodstatus if str(x) != 'nan'] # remove 'nan'
 
 haircolour_index = 2
 haircolour = np.unique(hp.Hair_colour.values.tolist())
@@ -94,56 +95,77 @@ loyalty_index = 4
 loyalty = np.unique(hp.Loyalty.values.tolist())
 loyalty = [x for x in loyalty if str(x) != 'nan'] # remove 'nan'
 
-# inserting data into 2D list for gender (index 0) 
-gryffindor_list = [] # number of ['Female', 'Male'] in Gryffindor
-hufflepuff_list = [] # number of ['Female', 'Male'] in Hufflepuff
-ravenclaw_list = []  # number of ['Female', 'Male'] in Ravenclaw
-slytherin_list = []  # number of ['Female', 'Male'] in Slytherin
+gryffindor = [[],[],[],[],[]] # number of ['Female', 'Male'] in Gryffindor
+hufflepuff = [[],[],[],[],[]] # number of ['Female', 'Male'] in Hufflepuff
+ravenclaw = [[],[],[],[],[]]  # number of ['Female', 'Male'] in Ravenclaw
+slytherin = [[],[],[],[],[]] # number of ['Female', 'Male'] in Slytherin
 
-# list_of_traitlist = list(hp)
-list_of_traitlist = [gender, bloodstatus, haircolour, eyecolour, loyalty]
+def func(df, num_row_df):
+    num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df 
 
-for traitlist in list_of_traitlist: 
-    for house in houselist: 
-        for trait in traitlist:
+    templist_g = [] 
+    templist_h = [] 
+    templist_r = [] 
+    templist_s = []
 
-            if traitlist == gender:
-                column_name = "Gender"
-                df = hp.loc[(hp['House'] == house) & (hp[column_name] == trait)]
-                num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
-            elif traitlist == bloodstatus:
-                column_name = "Bloodstatus"
-                df = hp.loc[(hp['House'] == house) & (hp[column_name] == trait)]
-                num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
-            elif traitlist == haircolour:
-                column_name = "Hair_colour"
-                df = hp.loc[(hp['House'] == house) & (hp[column_name] == trait)]
-                num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
-            elif traitlist == eyecolour:
-                column_name = "Eye_colour"
-                df = hp.loc[(hp['House'] == house) & (hp[column_name] == trait)]
-                num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
-            elif traitlist == loyalty:
-                column_name = "Loyalty"
-                df = hp.loc[(hp['House'] == house) & (hp[column_name] == trait)]
-                num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
+    if house == 'Gryffindor':
+        templist_g.append(num_row_df) # e.g. num_row_df = number of i = 'Gryffindor, j = 'Female'
+        gryffindor.append(templist_g)
+    elif house == 'Hufflepuff':
+        templist_h.append(num_row_df) # e.g. num_row_df = number of i = 'Gryffindor, j = 'Female'
+        hufflepuff.append(templist_h)
+    elif house == 'Ravenclaw':
+        templist_r.append(num_row_df) # e.g. num_row_df = number of i = 'Gryffindor, j = 'Female'
+        ravenclaw.append(templist_r)
+    elif house == 'Slytherin':
+        templist_s.append(num_row_df) # e.g. num_row_df = number of i = 'Gryffindor, j = 'Female'
+        slytherin.append(templist_s)
 
-            # reduce the dataframe from hp to df so that the column is house and row is gen
+for house in houselist:     
+    for gen in gender:
+    
+        # reduce the dataframe from hp to df so that the column is house and row is gen
+        df = hp.loc[(hp['House'] == house) & (hp['Gender'] == gen)]
+        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df 
+
+        func(df, num_row_df)
+
+
+for house in houselist: 
+    for blood in bloodstatus:
+        
+        # reduce the dataframe from hp to df so that the column is house and row is blood
+        df = hp.loc[(hp['House'] == house) & (hp['Blood_status'] == blood)]
+        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
             
-                
-            if house == 'Gryffindor':
-                gryffindor_list.append(num_row_df) # e.g. num_row_df = number of i = 'Gryffindor, j = 'Female'
-            elif house == 'Hufflepuff':
-                hufflepuff_list.append(num_row_df)
-            elif house == 'Ravenclaw':
-                ravenclaw_list.append(num_row_df)
-            elif house == 'Slytherin':
-                slytherin_list.append(num_row_df)
+        func(house, num_row_df)
 
-    gryffindor.append(gryffindor_list) # list of number of ['Female', 'Male'] in Gryffindor is appended to the list gryffindor with index of 0
-    hufflepuff.append(hufflepuff_list) # list of number of ['Female', 'Male'] in Hufflepuff is appended to the list hufflepuff with index of 0
-    ravenclaw.append(ravenclaw_list)   # list of number of ['Female', 'Male'] in Ravenclaw is appended to the list ravenclaw with index of 0
-    slytherin.append(slytherin_list)   # list of number of ['Female', 'Male'] in Slytherin is appended to the list slytherin with index of 0
+for house in houselist: 
+    for hair in haircolour:
+        
+        # reduce the dataframe from hp to df so that the column is house and row is hair
+        df = hp.loc[(hp['House'] == house) & (hp['Hair_colour'] == hair)]
+        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
+            
+        func(house, num_row_df)
+
+for house in houselist: 
+    for eye in eyecolour:
+        
+        # reduce the dataframe from hp to df so that the column is house and row is eye
+        df = hp.loc[(hp['House'] == house) & (hp['Eye_colour'] == eye)]
+        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
+            
+        func(house, num_row_df)
+
+for house in houselist: 
+    for loyal in loyalty:
+    
+        # reduce the dataframe from hp to df so that the column is house and row is loyal
+        df = hp.loc[(hp['House'] == house) & (hp['Loyalty'] == loyal)]
+        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
+            
+        func(house, num_row_df)
 
 def legend(fig, label):
     fig.legend(labels=label,   # the labels for each line

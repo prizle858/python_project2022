@@ -79,8 +79,9 @@ gender = [x for x in gender if str(x) != 'nan'] # remove 'nan'
 
 bloodstatus_index = 1
 bloodstatus = np.unique(hp.Blood_status.values.tolist())
-bloodstatus = bloodstatus[0:4] # remove 'Pure-blood or half-blood' and 'nan'
-bloodstatus = np.delete(bloodstatus, 2, 0) # remove 'Muggle-born or half-blood'
+bloodstatus = [x for x in bloodstatus if not ' or ' in str(x)] # remove strings with ' or '
+bloodstatus = [x for x in bloodstatus if not ' or ' in str(x)] # remove strings with ' or '
+bloodstatus = [x for x in bloodstatus if str(x) != 'nan'] # remove 'nan'
 
 haircolour_index = 2
 haircolour = np.unique(hp.Hair_colour.values.tolist())
@@ -278,15 +279,6 @@ def plot(n):
                 legend(fig, loyalty)
     except IndexError:
         print("n should be in range from 0 to 4.") # in case n is out of range from 0 to 4
-       
-
-# use explode, explode = (0.05, 0.05, 0.05, 0.05, 0.05)
-# donut plot 
-    # draw circle
-    # centre_circle = plt.Circle((0, 0), 0.70, fc='black') # readjust color depending on background
-    # fig = plt.gcf()
-    # # Adding Circle in Pie chart
-    # fig.gca().add_artist(centre_circle)
 
 plot(0)
 plot(1)
