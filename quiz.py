@@ -30,12 +30,9 @@ def random_quote(data):
     Args: data(list) - possible movies
     Returns: tuple(quote, character, movie) - quote that has been generated, the character that said the quote, and the movie it apperead in
     """
-    
-    # choose a random data set
-    dataset = random.choice(data)
-    
-    # save in which film the quote occurs
-    film = 1 if dataset.equals(data[0]) else (2 if dataset.equals(data[1]) else 3)
+    # choose a random film and work with the according dataset
+    film = random.randrange(0,3) + 1
+    dataset = data[film - 1]
         
     # choose a random line
     line = random.randrange(0, len(dataset))
@@ -159,8 +156,8 @@ def quote_quiz(data, n=10):
     # asks the quote questions and count points
     for q in quotes: 
         # get user input for the character that said the quote
-        answer = input(f"Who said the following? \n'{q[0]}'")
-        print(f"Your answer: {answer}")
+        answer = input(f"Who said the following? \n'{q[0]}'\n\n")
+        #print(f"Your answer: {answer}")
         
         # evaluate the answer
         if(answer_evaluation(answer, q[1])): 
@@ -170,8 +167,8 @@ def quote_quiz(data, n=10):
             print(f"Your answer was wrong! Actually, {q[1].title()} said that\n")
         
         # get user input for from which movie is the quote
-        film = input("Bonus: From which movie is the quote? Pick: \n1 for Harry Potter and the Philosopher’s Stone \n2 for Harry Potter and the Chamber of Secrets \n3 for Harry Potter and the Prisoner of Azkaban.")
-        print(f"Your answer: {film}")
+        film = input("Bonus: From which movie is the quote? Pick: \n1 for Harry Potter and the Philosopher’s Stone \n2 for Harry Potter and the Chamber of Secrets \n3 for Harry Potter and the Prisoner of Azkaban. \nPlease, just type in the number!\n\n")
+        #print(f"Your answer: {film}")
         
         # answer needs to be a digit
         # check whether answer is true
@@ -184,7 +181,7 @@ def quote_quiz(data, n=10):
             print(f"Your answer was wrong! Actually, the quote is from movie {q[2]}: {film_names[q[2]-1]}.\n")
     
     # print the final score and bonus 
-    print(f"Final score: {score} \nBonus points: {bonus}")
+    print(f"Final score: {score} \nBonus points: {bonus}\n\n")
     
     return score, bonus
 
@@ -215,26 +212,64 @@ def plot(data):
     # create plot 
     fig, ax = plt.subplots(nrows = 2, ncols = 2, figsize=(30,20))
     fig.tight_layout()
-    
+                   
     # add plot titles
-    ax[0,0].set_title('Harry Potter and the Philosopher’s Stone', fontsize=28, horizontalalignment="center", fontweight="bold")
-    ax[0,1].set_title('Harry Potter and the Chamber of Secrets', fontsize=28, horizontalalignment="center", fontweight="bold")
-    ax[1,0].set_title('Harry Potter and the Prisoner of Azkaban', fontsize=28, horizontalalignment="center", fontweight="bold")
-    ax[1,1].set_title('All movies - Line Distribution of Harry, Ron, and Hermione', fontsize=28, horizontalalignment="center", fontweight="bold")
-    
+    ax[0,0].set_title('Harry Potter and the Philosopher’s Stone', 
+                      fontsize=28, 
+                      horizontalalignment="center", 
+                      fontweight="bold")
+                   
+    ax[0,1].set_title('Harry Potter and the Chamber of Secrets', 
+                      fontsize=28, 
+                      horizontalalignment="center", 
+                      fontweight="bold")
+                   
+    ax[1,0].set_title('Harry Potter and the Prisoner of Azkaban', 
+                      fontsize=28, 
+                      horizontalalignment="center", 
+                      fontweight="bold")
+                   
+    ax[1,1].set_title('All movies - Line Distribution of Harry, Ron, and Hermione', 
+                      fontsize=28, 
+                      horizontalalignment="center", 
+                      fontweight="bold")
     
     def func(pct, allvalues):
-        """Returns the layout for the percentages/numbers inside the pie charts"""
+        """Returns the layout for the percentages/numbers inside the pie charts
+        Args: pct - argument of the lambda function
+              allvalues(int) - the total counts of lines per character for one movie   
+        """
         absolute = int(pct / 100.*np.sum(allvalues))
         return "{:.1f}%\n({:d} lines)".format(pct, absolute)
     
-    # create pie chart of the line distribution of each movie and add its legend
+    # create pie chart of the line distribution of each movie
     wedges1, texts1, autotexts1 = ax[0,0].pie(count_hp1, autopct = lambda pct: func(pct, count_hp1))
-    ax[0,0].legend(wedges1, count_hp1.index, title="Characters", loc="center left", bbox_to_anchor=(1, 0, 0.5, 1), fontsize=20, title_fontsize=25)
     wedges2, texts2, autotexts2 = ax[0,1].pie(count_hp2, autopct = lambda pct: func(pct, count_hp2))
-    ax[0,1].legend(wedges2, count_hp2.index, title="Characters", loc="center left", bbox_to_anchor=(1, 0, 0.5, 1), fontsize=20, title_fontsize=25)
-    wedges3, texts3, autotexts3 = ax[1,0].pie(count_hp3, autopct = lambda pct: func(pct, count_hp3))
-    ax[1,0].legend(wedges3, count_hp3.index, title="Characters", loc="center left", bbox_to_anchor=(1, 0, 0.5, 1), fontsize=20, title_fontsize=25)
+    wedges3, texts3, autotexts3 = ax[1,0].pie(count_hp3, autopct = lambda pct: func(pct, count_hp3))                
+                   
+    # create the legend for each of the pie charts
+    ax[0,0].legend(wedges1, 
+                   count_hp1.index, 
+                   title="Characters", 
+                   loc="center left", 
+                   bbox_to_anchor=(1, 0, 0.5, 1), 
+                   fontsize=20, title_fontsize=25)
+    
+    ax[0,1].legend(wedges2, 
+                   count_hp2.index, 
+                   title="Characters", 
+                   loc="center left", 
+                   bbox_to_anchor=(1, 0, 0.5, 1), 
+                   fontsize=20, 
+                   title_fontsize=25)
+    
+    ax[1,0].legend(wedges3, 
+                   count_hp3.index, 
+                   title="Characters", 
+                   loc="center left", 
+                   bbox_to_anchor=(1, 0, 0.5, 1), 
+                   fontsize=20, 
+                   title_fontsize=25)
     
     # change size and font of percentages in pie charts
     plt.setp(autotexts1, size=15, weight="bold")
@@ -242,11 +277,30 @@ def plot(data):
     plt.setp(autotexts3, size=15, weight="bold")
     
     # create stacked bar plot of the total amount of lines of Harry, Ron, and Hermione for each movie
-    # create the according legend
-    ax[1,1].bar(["Movie 1", "Movie 2", "Movie 3"], [count_hp1.loc["Harry"], count_hp2.loc["Harry"], count_hp3.loc["Harry"]], width=0.5)
-    ax[1,1].bar(["Movie 1", "Movie 2", "Movie 3"], [count_hp1.loc["Ron"], count_hp2.loc["Ron"], count_hp3.loc["Ron"]], bottom=[count_hp1.loc["Harry"], count_hp2.loc["Harry"], count_hp3.loc["Harry"]], width=0.5)
-    ax[1,1].bar(["Movie 1", "Movie 2", "Movie 3"], [count_hp1.loc["Hermione"], count_hp2.loc["Hermione"], count_hp3.loc["Hermione"]], bottom=[count_hp1.loc["Harry"]+count_hp1.loc["Ron"], count_hp2.loc["Harry"]+count_hp2.loc["Ron"], count_hp3.loc["Harry"]+count_hp3.loc["Ron"]], width=0.5)
-    ax[1,1].legend(["Harry", "Ron", "Hermione"], title="Character", loc="center left", bbox_to_anchor=(1, 0, 0.5, 1), fontsize=20, title_fontsize=25)
+    # plot Harrys lines
+    ax[1,1].bar(["Movie 1", "Movie 2", "Movie 3"], 
+                [count_hp1.loc["Harry"], count_hp2.loc["Harry"], count_hp3.loc["Harry"]], 
+                width=0.5)
+    
+    # plot Rons lines
+    ax[1,1].bar(["Movie 1", "Movie 2", "Movie 3"], 
+                [count_hp1.loc["Ron"], count_hp2.loc["Ron"], count_hp3.loc["Ron"]], 
+                bottom=[count_hp1.loc["Harry"], count_hp2.loc["Harry"], count_hp3.loc["Harry"]], 
+                width=0.5)
+    
+    # plot Hermiones lines
+    ax[1,1].bar(["Movie 1", "Movie 2", "Movie 3"], 
+                [count_hp1.loc["Hermione"], count_hp2.loc["Hermione"], count_hp3.loc["Hermione"]], 
+                bottom=[count_hp1.loc["Harry"]+count_hp1.loc["Ron"], count_hp2.loc["Harry"]+count_hp2.loc["Ron"], count_hp3.loc["Harry"]+count_hp3.loc["Ron"]], 
+                width=0.5)
+    
+    # create the legend for the lines of Ron, Hermione, and Harry
+    ax[1,1].legend(["Harry", "Ron", "Hermione"], 
+                   title="Character", 
+                   loc="center left", 
+                   bbox_to_anchor=(1, 0, 0.5, 1), 
+                   fontsize=20, 
+                   title_fontsize=25)
     
     # hide yaxis of stacked bar plot
     # higher font size of x-ticks
