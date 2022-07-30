@@ -173,9 +173,9 @@ for house in houselist:
             slytherin_haircolour.append(num_row_df)
 
 gryffindor.append(gryffindor_haircolour) # list gryffindor_haircolour is appended to the list gryffindor with index of 2
-hufflepuff.append(gryffindor_haircolour) # list hufflepuff_haircolour is appended to the list hufflepuff with index of 2
-ravenclaw.append(gryffindor_haircolour)  # list ravenclaw_haircolour is appended to the list ravenclaw with index of 2
-slytherin.append(gryffindor_haircolour)  # list slytherin_haircolour is appended to the list slytherin with index of 2
+hufflepuff.append(hufflepuff_haircolour) # list hufflepuff_haircolour is appended to the list hufflepuff with index of 2
+ravenclaw.append(ravenclaw_haircolour)  # list ravenclaw_haircolour is appended to the list ravenclaw with index of 2
+slytherin.append(slytherin_haircolour)  # list slytherin_haircolour is appended to the list slytherin with index of 2
 
 # inserting data into 2D list for haircolour (index 3) 
 gryffindor_eyecolour = [] # number of people with the eye colour of  ['Blue', 'Brown', 'Dark', 'Green', 'Grey', 'Hazel'] in Gryffindor
@@ -200,9 +200,9 @@ for house in houselist:
             slytherin_eyecolour.append(num_row_df)
 
 gryffindor.append(gryffindor_eyecolour) # list gryffindor_eyecolour is appended to the list gryffindor with index of 3
-hufflepuff.append(gryffindor_eyecolour) # list hufflepuff_eyecolour is appended to the list hufflepuff with index of 3
-ravenclaw.append(gryffindor_eyecolour)  # list ravenclaw_eyecolour is appended to the list ravenclaw with index of 3
-slytherin.append(gryffindor_eyecolour)  # list slytherin_eyecolour is appended to the list slytherin with index of 3
+hufflepuff.append(hufflepuff_eyecolour) # list hufflepuff_eyecolour is appended to the list hufflepuff with index of 3
+ravenclaw.append(ravenclaw_eyecolour)  # list ravenclaw_eyecolour is appended to the list ravenclaw with index of 3
+slytherin.append(slytherin_eyecolour)  # list slytherin_eyecolour is appended to the list slytherin with index of 3
 
 # inserting data into 2D list for haircolour (index 4) 
 gryffindor_loyalty = [] # number of supporter of ["Dumbledore's Army", 'Hogwarts School', 'Lord Voldemort', 'Ministry of Magic'] in Gryffindor
@@ -240,7 +240,7 @@ def legend(fig, label):
 
 def plot(n):
     '''plot is about gender, bloodstatus, haircolour, eyecolour, or loyalty depending on the house.
-    the plot is about gender when n= 0, bloodstatus when n= 1, haircolour when n= 2, eyecolour when n= 3, loyalty when n = 4'''
+    the plot is about gender when n=0, bloodstatus when n=1, haircolour when n=2, eyecolour when n=3, loyalty when n=4'''
 
     fig, axs = plt.subplots(nrows = 2, ncols = 2, figsize=(10,10))
     try: 
