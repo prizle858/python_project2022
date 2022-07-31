@@ -95,6 +95,24 @@ loyalty_index = 4
 loyalty = np.unique(hp.Loyalty.values.tolist())
 loyalty = [x for x in loyalty if str(x) != 'nan'] # remove 'nan'
 
+def appendfunc(list_g,  list_h, list_r, list_s, row):
+    '''append number of people with the same trait & house to list'''
+    if house == 'Gryffindor':
+        list_g.append(row) # e.g. num_row_df = number of i = 'Gryffindor, j = 'Female'
+    elif house == 'Hufflepuff':
+        list_h.append(row)
+    elif house == 'Ravenclaw':
+        list_r.append(row)
+    elif house == 'Slytherin':
+        list_s.append(row)
+
+def appendfunc2(list_g,  list_h, list_r, list_s):
+    '''append the list of number of people with the same trait & house to lists, gryffindor, hufflepuff, ravenclaw, slytherin'''
+    gryffindor.append(list_g) # list of number of ['Female', 'Male'] in Gryffindor is appended to the list gryffindor with index of 0
+    hufflepuff.append(list_h) # list of number of ['Female', 'Male'] in Hufflepuff is appended to the list hufflepuff with index of 0
+    ravenclaw.append(list_r)   # list of number of ['Female', 'Male'] in Ravenclaw is appended to the list ravenclaw with index of 0
+    slytherin.append(list_s)   # list of number of ['Female', 'Male'] in Slytherin is appended to the list slytherin with index of 0
+
 # inserting data into 2D list for gender (index 0) 
 gryffindor_gender = [] # number of ['Female', 'Male'] in Gryffindor
 hufflepuff_gender = [] # number of ['Female', 'Male'] in Hufflepuff
@@ -106,22 +124,10 @@ for house in houselist:
     
         # reduce the dataframe from hp to df so that the column is house and row is gen
         df = hp.loc[(hp['House'] == house) & (hp['Gender'] == gen)]
-        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
-            
-        if house == 'Gryffindor':
-            gryffindor_gender.append(num_row_df) # e.g. num_row_df = number of i = 'Gryffindor, j = 'Female'
-        elif house == 'Hufflepuff':
-            hufflepuff_gender.append(num_row_df)
-        elif house == 'Ravenclaw':
-            ravenclaw_gender.append(num_row_df)
-        elif house == 'Slytherin':
-            slytherin_gender.append(num_row_df)
+        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df   
+        appendfunc(gryffindor_gender, hufflepuff_gender, ravenclaw_gender, slytherin_gender, num_row_df)
 
-gryffindor.append(gryffindor_gender) # list of number of ['Female', 'Male'] in Gryffindor is appended to the list gryffindor with index of 0
-hufflepuff.append(hufflepuff_gender) # list of number of ['Female', 'Male'] in Hufflepuff is appended to the list hufflepuff with index of 0
-ravenclaw.append(ravenclaw_gender)   # list of number of ['Female', 'Male'] in Ravenclaw is appended to the list ravenclaw with index of 0
-slytherin.append(slytherin_gender)   # list of number of ['Female', 'Male'] in Slytherin is appended to the list slytherin with index of 0
-
+appendfunc2(gryffindor_gender, hufflepuff_gender, ravenclaw_gender, slytherin_gender)
 
 # inserting data into 2D list for bloodstatus (index 1) 
 gryffindor_bloodstatus = [] # number of people with ['Half-blood', 'Muggle-born', 'Pure-blood'] in Gryffindor
@@ -134,21 +140,10 @@ for house in houselist:
         
         # reduce the dataframe from hp to df so that the column is house and row is blood
         df = hp.loc[(hp['House'] == house) & (hp['Blood_status'] == blood)]
-        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
-            
-        if house == 'Gryffindor':
-            gryffindor_bloodstatus.append(num_row_df)
-        elif house == 'Hufflepuff':
-            hufflepuff_bloodstatus.append(num_row_df)
-        elif house == 'Ravenclaw':
-            ravenclaw_bloodstatus.append(num_row_df)
-        elif house == 'Slytherin':
-            slytherin_bloodstatus.append(num_row_df)
+        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df   
+        appendfunc(gryffindor_bloodstatus, hufflepuff_bloodstatus, ravenclaw_bloodstatus, slytherin_bloodstatus, num_row_df)
 
-gryffindor.append(gryffindor_bloodstatus) # list gryffindor_bloodstatus is appended to the list gryffindor with index of 1
-hufflepuff.append(hufflepuff_bloodstatus) # list hufflepuff_bloodstatus is appended to the list hufflepuff with index of 1
-ravenclaw.append(ravenclaw_bloodstatus)   # list ravenclaw_bloodstatus is appended to the list ravenclaw with index of 1
-slytherin.append(slytherin_bloodstatus)   # list slytherin_bloodstatus is appended to the list slytherin with index of 1
+appendfunc2(gryffindor_bloodstatus, hufflepuff_bloodstatus, ravenclaw_bloodstatus, slytherin_bloodstatus)
 
 # inserting data into 2D list for haircolour (index 2) 
 gryffindor_haircolour = [] # number of people with the hair colour of ['Bald', 'Blonde', 'Brown', 'Dark', 'Red', 'Silver / White / Grey'] in Gryffindor
@@ -161,21 +156,10 @@ for house in houselist:
         
         # reduce the dataframe from hp to df so that the column is house and row is hair
         df = hp.loc[(hp['House'] == house) & (hp['Hair_colour'] == hair)]
-        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
-            
-        if house == 'Gryffindor':
-            gryffindor_haircolour.append(num_row_df)
-        elif house == 'Hufflepuff':
-            hufflepuff_haircolour.append(num_row_df)
-        elif house == 'Ravenclaw':
-            ravenclaw_haircolour.append(num_row_df)
-        elif house == 'Slytherin':
-            slytherin_haircolour.append(num_row_df)
+        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df    
+        appendfunc(gryffindor_haircolour, hufflepuff_haircolour, ravenclaw_haircolour, slytherin_haircolour, num_row_df)
 
-gryffindor.append(gryffindor_haircolour) # list gryffindor_haircolour is appended to the list gryffindor with index of 2
-hufflepuff.append(hufflepuff_haircolour) # list hufflepuff_haircolour is appended to the list hufflepuff with index of 2
-ravenclaw.append(ravenclaw_haircolour)  # list ravenclaw_haircolour is appended to the list ravenclaw with index of 2
-slytherin.append(slytherin_haircolour)  # list slytherin_haircolour is appended to the list slytherin with index of 2
+appendfunc2(gryffindor_haircolour, hufflepuff_haircolour, ravenclaw_haircolour, slytherin_haircolour)
 
 # inserting data into 2D list for haircolour (index 3) 
 gryffindor_eyecolour = [] # number of people with the eye colour of  ['Blue', 'Brown', 'Dark', 'Green', 'Grey', 'Hazel'] in Gryffindor
@@ -188,21 +172,10 @@ for house in houselist:
         
         # reduce the dataframe from hp to df so that the column is house and row is eye
         df = hp.loc[(hp['House'] == house) & (hp['Eye_colour'] == eye)]
-        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
-            
-        if house == 'Gryffindor':
-            gryffindor_eyecolour.append(num_row_df)
-        elif house == 'Hufflepuff':
-            hufflepuff_eyecolour.append(num_row_df)
-        elif house == 'Ravenclaw':
-            ravenclaw_eyecolour.append(num_row_df)
-        elif house == 'Slytherin':
-            slytherin_eyecolour.append(num_row_df)
+        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df   
+        appendfunc(gryffindor_eyecolour, hufflepuff_eyecolour, ravenclaw_eyecolour, slytherin_eyecolour, num_row_df)
 
-gryffindor.append(gryffindor_eyecolour) # list gryffindor_eyecolour is appended to the list gryffindor with index of 3
-hufflepuff.append(hufflepuff_eyecolour) # list hufflepuff_eyecolour is appended to the list hufflepuff with index of 3
-ravenclaw.append(ravenclaw_eyecolour)  # list ravenclaw_eyecolour is appended to the list ravenclaw with index of 3
-slytherin.append(slytherin_eyecolour)  # list slytherin_eyecolour is appended to the list slytherin with index of 3
+appendfunc2(gryffindor_eyecolour, hufflepuff_eyecolour, ravenclaw_eyecolour, slytherin_eyecolour)
 
 # inserting data into 2D list for haircolour (index 4) 
 gryffindor_loyalty = [] # number of supporter of ["Dumbledore's Army", 'Hogwarts School', 'Lord Voldemort', 'Ministry of Magic'] in Gryffindor
@@ -215,23 +188,13 @@ for house in houselist:
     
         # reduce the dataframe from hp to df so that the column is house and row is loyal
         df = hp.loc[(hp['House'] == house) & (hp['Loyalty'] == loyal)]
-        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
-            
-        if house == 'Gryffindor':
-            gryffindor_loyalty.append(num_row_df)
-        elif house == 'Hufflepuff':
-            hufflepuff_loyalty.append(num_row_df)
-        elif house == 'Ravenclaw':
-            ravenclaw_loyalty.append(num_row_df)
-        elif house == 'Slytherin':
-            slytherin_loyalty.append(num_row_df)
+        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df   
+        appendfunc(gryffindor_loyalty, hufflepuff_loyalty, ravenclaw_loyalty, slytherin_loyalty, num_row_df)
 
-gryffindor.append(gryffindor_loyalty) # list gryffindor_loyalty is appended to the list gryffindor with index of 4
-hufflepuff.append(hufflepuff_loyalty) # list hufflepuff_loyalty is appended to the list hufflepuff with index of 4
-ravenclaw.append(ravenclaw_loyalty)   # list ravenclaw_loyalty is appended to the list ravenclaw with index of 4
-slytherin.append(slytherin_loyalty)   # list slytherin_loyalty is appended to the list slytherin with index of 4
+appendfunc2(gryffindor_loyalty, hufflepuff_loyalty, ravenclaw_loyalty, slytherin_loyalty)
 
 def legend(fig, label):
+    '''defined legend as a function to reduce the line number'''
     fig.legend(labels=label,   # the labels for each line
                     loc="center",            # position of legend
                     borderaxespad=0.1,       # small spacing around legend box
@@ -239,8 +202,7 @@ def legend(fig, label):
                     )
 
 def plot(n):
-    '''plot is about gender, bloodstatus, haircolour, eyecolour, or loyalty depending on the house.
-    the plot is about gender when n=0, bloodstatus when n=1, haircolour when n=2, eyecolour when n=3, loyalty when n=4'''
+    '''The plot is about gender when n=0, bloodstatus when n=1, haircolour when n=2, eyecolour when n=3, loyalty when n=4'''
 
     fig, axs = plt.subplots(nrows = 2, ncols = 2, figsize=(10,10))
     try: 
