@@ -239,13 +239,8 @@ def plot(n):
             elif n == loyalty_index:
                 fig.suptitle("Loyalty distribution", fontsize=15)
                 legend(fig, loyalty)
+                
     except IndexError:
         print("n should be in range from 0 to 4.") # in case n is out of range from 0 to 4
-
-plot(0)
-plot(1)
-plot(2)
-plot(3)
-plot(4)
-
-plt.show()
+    
+    plt.show()
