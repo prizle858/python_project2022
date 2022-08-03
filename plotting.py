@@ -96,9 +96,9 @@ loyalty = np.unique(hp.Loyalty.values.tolist())
 loyalty = [x for x in loyalty if str(x) != 'nan'] # remove 'nan'
 
 def appendfunc(list_g,  list_h, list_r, list_s, row):
-    '''append number of people with the same trait & house to list'''
+    '''append the number of people with the same trait & house (which is "row") to list, "list_g", "list_h", "list_r", "list_s"'''
     if house == 'Gryffindor':
-        list_g.append(row) # e.g. num_row_df = number of i = 'Gryffindor, j = 'Female'
+        list_g.append(row) 
     elif house == 'Hufflepuff':
         list_h.append(row)
     elif house == 'Ravenclaw':
@@ -107,13 +107,14 @@ def appendfunc(list_g,  list_h, list_r, list_s, row):
         list_s.append(row)
 
 def appendfunc2(list_g,  list_h, list_r, list_s):
-    '''append the list of number of people with the same trait & house to lists, gryffindor, hufflepuff, ravenclaw, slytherin'''
-    gryffindor.append(list_g) # list of number of ['Female', 'Male'] in Gryffindor is appended to the list gryffindor with index of 0
-    hufflepuff.append(list_h) # list of number of ['Female', 'Male'] in Hufflepuff is appended to the list hufflepuff with index of 0
-    ravenclaw.append(list_r)   # list of number of ['Female', 'Male'] in Ravenclaw is appended to the list ravenclaw with index of 0
-    slytherin.append(list_s)   # list of number of ['Female', 'Male'] in Slytherin is appended to the list slytherin with index of 0
+    '''append the lists of number of people with the same trait & house to lists, "gryffindor", "hufflepuff", "ravenclaw", "slytherin"
+    This is to make the list, "gryffindor", "hufflepuff", "ravenclaw", "slytherin", 2D lists.'''
+    gryffindor.append(list_g)
+    hufflepuff.append(list_h)
+    ravenclaw.append(list_r)
+    slytherin.append(list_s)
 
-# inserting data into 2D list for gender (index 0) 
+# inserting data into 2D list for gender with index 0
 gryffindor_gender = [] # number of ['Female', 'Male'] in Gryffindor
 hufflepuff_gender = [] # number of ['Female', 'Male'] in Hufflepuff
 ravenclaw_gender = []  # number of ['Female', 'Male'] in Ravenclaw
@@ -129,7 +130,7 @@ for house in houselist:
 
 appendfunc2(gryffindor_gender, hufflepuff_gender, ravenclaw_gender, slytherin_gender)
 
-# inserting data into 2D list for bloodstatus (index 1) 
+# inserting data into 2D list for bloodstatus with index 1
 gryffindor_bloodstatus = [] # number of people with ['Half-blood', 'Muggle-born', 'Pure-blood'] in Gryffindor
 hufflepuff_bloodstatus = [] # number of people with ['Half-blood', 'Muggle-born', 'Pure-blood'] in Hufflepuff
 ravenclaw_bloodstatus = []  # number of people with ['Half-blood', 'Muggle-born', 'Pure-blood'] in Ravenclaw
@@ -145,7 +146,7 @@ for house in houselist:
 
 appendfunc2(gryffindor_bloodstatus, hufflepuff_bloodstatus, ravenclaw_bloodstatus, slytherin_bloodstatus)
 
-# inserting data into 2D list for haircolour (index 2) 
+# inserting data into 2D list for haircolour with index 2
 gryffindor_haircolour = [] # number of people with the hair colour of ['Bald', 'Blonde', 'Brown', 'Dark', 'Red', 'Silver / White / Grey'] in Gryffindor
 hufflepuff_haircolour = [] # number of people with the hair colour of ['Bald', 'Blonde', 'Brown', 'Dark', 'Red', 'Silver / White / Grey'] in Hufflepuff
 ravenclaw_haircolour = []  # number of people with the hair colour of ['Bald', 'Blonde', 'Brown', 'Dark', 'Red', 'Silver / White / Grey'] in Ravenclaw
@@ -161,7 +162,7 @@ for house in houselist:
 
 appendfunc2(gryffindor_haircolour, hufflepuff_haircolour, ravenclaw_haircolour, slytherin_haircolour)
 
-# inserting data into 2D list for haircolour (index 3) 
+# inserting data into 2D list for haircolour with index 3
 gryffindor_eyecolour = [] # number of people with the eye colour of  ['Blue', 'Brown', 'Dark', 'Green', 'Grey', 'Hazel'] in Gryffindor
 hufflepuff_eyecolour = [] # number of people with the eye colour of ['Blue', 'Brown', 'Dark', 'Green', 'Grey', 'Hazel'] in Hufflepuff
 ravenclaw_eyecolour = []  # number of people with the eye colour of ['Blue', 'Brown', 'Dark', 'Green', 'Grey', 'Hazel'] in Ravenclaw
@@ -177,7 +178,7 @@ for house in houselist:
 
 appendfunc2(gryffindor_eyecolour, hufflepuff_eyecolour, ravenclaw_eyecolour, slytherin_eyecolour)
 
-# inserting data into 2D list for haircolour (index 4) 
+# inserting data into 2D list for haircolour with index 4
 gryffindor_loyalty = [] # number of supporter of ["Dumbledore's Army", 'Hogwarts School', 'Lord Voldemort', 'Ministry of Magic'] in Gryffindor
 hufflepuff_loyalty = [] # number of supporter of ["Dumbledore's Army", 'Hogwarts School', 'Lord Voldemort', 'Ministry of Magic'] in Hufflepuff
 ravenclaw_loyalty = []  # number of supporter of ["Dumbledore's Army", 'Hogwarts School', 'Lord Voldemort', 'Ministry of Magic'] in Ravenclaw
@@ -194,7 +195,7 @@ for house in houselist:
 appendfunc2(gryffindor_loyalty, hufflepuff_loyalty, ravenclaw_loyalty, slytherin_loyalty)
 
 def legend(fig, label):
-    '''defined legend as a function to reduce the line number'''
+    '''define legend as a function to reduce the line number'''
     fig.legend(labels=label,   # the labels for each line
                     loc="center",            # position of legend
                     borderaxespad=0.1,       # small spacing around legend box
