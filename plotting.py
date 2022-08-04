@@ -96,7 +96,9 @@ loyalty = np.unique(hp.Loyalty.values.tolist())
 loyalty = [x for x in loyalty if str(x) != 'nan'] # remove 'nan'
 
 def appendfunc(list_g,  list_h, list_r, list_s, row):
-    '''append the number of people with the same trait & house (which is "row") to list, "list_g", "list_h", "list_r", "list_s"'''
+    '''append the number of people with the same trait & house (which is "row") to list, "list_g", "list_h", "list_r", "list_s"
+    Args: list_g(list), list_h(list), list_r(list), list_s(list) - lists, to which the row will be appended to
+          row(int) - number of people with the same trait & house '''
     if house == 'Gryffindor':
         list_g.append(row) 
     elif house == 'Hufflepuff':
@@ -108,8 +110,8 @@ def appendfunc(list_g,  list_h, list_r, list_s, row):
 
 def appendfunc2(list_g,  list_h, list_r, list_s):
     '''append the lists of number of people with the same trait & house to lists, "gryffindor", "hufflepuff", "ravenclaw", "slytherin"
-    This is to make the list, "gryffindor", "hufflepuff", "ravenclaw", "slytherin", 2D lists.'''
-    gryffindor.append(list_g)
+    This is to make the list, "gryffindor", "hufflepuff", "ravenclaw", "slytherin", 2D lists.
+    Args: list_g(list), list_h(list), list_r(list), list_s(list): lists, which will be appended to gryffindor, hufflepuff, ravenclaw, slytherin'''    gryffindor.append(list_g)
     hufflepuff.append(list_h)
     ravenclaw.append(list_r)
     slytherin.append(list_s)
@@ -195,7 +197,9 @@ for house in houselist:
 appendfunc2(gryffindor_loyalty, hufflepuff_loyalty, ravenclaw_loyalty, slytherin_loyalty)
 
 def legend(fig, label):
-    '''define legend as a function to reduce the line number'''
+    '''define legend as a function to reduce the line number
+    Arg: fig(figure): frame of the plot 
+         label(list): label for the legend '''
     fig.legend(labels=label,   # the labels for each line
                     loc="center",            # position of legend
                     borderaxespad=0.1,       # small spacing around legend box
@@ -203,7 +207,8 @@ def legend(fig, label):
                     )
 
 def plot(n):
-    '''The plot is about gender when n=0, bloodstatus when n=1, haircolour when n=2, eyecolour when n=3, loyalty when n=4'''
+    '''The plot is about gender when n=0, bloodstatus when n=1, haircolour when n=2, eyecolour when n=3, loyalty when n=4
+    Arg: n(int): number, which indicates which plot is chosen to be shown'''
 
     fig, axs = plt.subplots(nrows = 2, ncols = 2, figsize=(10,10))
     try: 
