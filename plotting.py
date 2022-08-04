@@ -140,7 +140,7 @@ for house in houselist:
         # reduce the dataframe from hp to df so that the column is house and row is gen
         df = hp.loc[(hp['House'] == house) & (hp['Gender'] == gen)]
         num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
-        # safe amount of different genders for the respective houses
+        # save amount of different genders for the respective houses
         appendfunc(gryffindor_gender, hufflepuff_gender, ravenclaw_gender, slytherin_gender, num_row_df)
 
 # add list containing the information of the gender to the respective house list
@@ -158,7 +158,7 @@ for house in houselist:
         # reduce the dataframe from hp to df so that the column is house and row is blood
         df = hp.loc[(hp['House'] == house) & (hp['Blood_status'] == blood)]
         num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
-        # safe amount of different blood status for the respective house
+        # save amount of different blood status for the respective house
         appendfunc(gryffindor_bloodstatus, hufflepuff_bloodstatus, ravenclaw_bloodstatus, slytherin_bloodstatus, num_row_df)
 
 # add lists containing the information of the blood status to the respective house list
@@ -176,7 +176,7 @@ for house in houselist:
         # reduce the dataframe from hp to df so that the column is house and row is hair
         df = hp.loc[(hp['House'] == house) & (hp['Hair_colour'] == hair)]
         num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df    
-        # safe amount of different hair colours for the respective house
+        # save amount of different hair colours for the respective house
         appendfunc(gryffindor_haircolour, hufflepuff_haircolour, ravenclaw_haircolour, slytherin_haircolour, num_row_df)
 
 # add list containing the information of the hair colour to the respective house list
@@ -194,7 +194,7 @@ for house in houselist:
         # reduce the dataframe from hp to df so that the column is house and row is eye
         df = hp.loc[(hp['House'] == house) & (hp['Eye_colour'] == eye)]
         num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df 
-        # safe amount of different eye colours for the respective house
+        # save amount of different eye colours for the respective house
         appendfunc(gryffindor_eyecolour, hufflepuff_eyecolour, ravenclaw_eyecolour, slytherin_eyecolour, num_row_df)
 
 # add list containing the information of the eye colour to the respective house list
@@ -212,7 +212,7 @@ for house in houselist:
         # reduce the dataframe from hp to df so that the column is house and row is loyal
         df = hp.loc[(hp['House'] == house) & (hp['Loyalty'] == loyal)]
         num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df   
-        # safe amount of different loyalty for the respective house
+        # save amount of different loyalty for the respective house
         appendfunc(gryffindor_loyalty, hufflepuff_loyalty, ravenclaw_loyalty, slytherin_loyalty, num_row_df)
         
 # add list containing the information of the loyalty to the respective house list
