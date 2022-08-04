@@ -1,5 +1,4 @@
 # import all necessary libaries
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -22,8 +21,8 @@ hp["Blood_status"] = hp["Blood_status"].str.strip(']').str.strip('[')
 
 # remove rows with certain labels, which in this case are outliers
 outlier1 = ["Unknown", "Part-Human (Half-giant)", "Quarter-Veela", "Part-Goblin", "Squib", "Muggle"]
-for i in outlier1:
-    hp = hp.loc[hp['Blood_status'] != i]
+for out1 in outlier1:
+    hp = hp.loc[hp['Blood_status'] != out1]
 
 # unit ambiguous labels to one label
 hp["Hair_colour"] = hp["Hair_colour"].replace(["Blond", "White-blond", "Silvery-blonde", "White blond", "Straw blond", "Reddish-blonde", "Dirty-blonde", "Sandy", "Straw-coloured"], "Blonde")
@@ -35,8 +34,8 @@ hp["Hair_colour"] = hp["Hair_colour"].replace(["Mousy brown", "Reddish-brown", "
 
 # remove rows with certain labels, which in this case are outliers
 outlier2 = ["Variable", "Green"]
-for i in outlier2:
-    hp = hp.loc[hp['Hair_colour'] != i]
+for out2 in outlier2:
+    hp = hp.loc[hp['Hair_colour'] != out2]
 
 # unit ambiguous labels to one label
 hp["Eye_colour"] = hp["Eye_colour"].replace(["Bright green", "Gooseberry"], "Green")
@@ -47,8 +46,8 @@ hp["Eye_colour"] = hp["Eye_colour"].replace(["Pale silvery", "Silvery", "Dark Gr
 
 # remove rows with certain labels, which in this case are outliers
 outlier3 = ["One dark, one electric blue", "Pale, freckled", "Yellowish", "Yellow"]
-for i in outlier3:
-    hp = hp.loc[hp['Eye_colour'] != i]
+for out3 in outlier3:
+    hp = hp.loc[hp['Eye_colour'] != out3]
 
 # unit ambiguous labels to one label
 hp.Loyalty = hp.Loyalty.apply(lambda x: "Dumbledore's Army" if not pd.isnull(x) and ("Dumbledore" in x) else x) 
@@ -59,8 +58,8 @@ hp["Loyalty"] = hp["Loyalty"].replace(["Hogwarts School of Witchcraft and Wizard
 
 # remove rows with certain labels, which in this case are outliers
 outlier4 = ["Gellert Grindelwald's Acolytes"]
-for i in outlier4:
-    hp = hp.loc[hp['Loyalty'] != i]
+for out4 in outlier4:
+    hp = hp.loc[hp['Loyalty'] != out4]
 
 # preparing lists to insert the data in order of 'Gender', 'Blood status', 'Hair colour', 'Eye colour', 'Loyalty' 
 # create 2D house lists of traits in each hous [['Gender'], ['Blood status'], ['Hair colour'], ['Eye colour'], ['Loyalty']]
@@ -73,32 +72,41 @@ slytherin = []
 houselist = np.unique(hp.House.values.tolist())
 houselist = houselist[1:5] # remove 'Durmstrang Institute' and 'nan'
 
+# get the unique gender values
 gender_index = 0 # for future indexing of each house list
 gender = np.unique(hp.Gender.values.tolist())
 gender = [x for x in gender if str(x) != 'nan'] # remove 'nan'
 
-bloodstatus_index = 1
+# get the unique blood status values
+bloodstatus_index = 1 # for future indexing of each house list
 bloodstatus = np.unique(hp.Blood_status.values.tolist())
 bloodstatus = [x for x in bloodstatus if not ' or ' in str(x)] # remove strings with ' or '
 bloodstatus = [x for x in bloodstatus if not ' or ' in str(x)] # remove strings with ' or '
 bloodstatus = [x for x in bloodstatus if str(x) != 'nan'] # remove 'nan'
 
-haircolour_index = 2
+# get the unique hair colour values
+haircolour_index = 2 # for future indexing of each house list
 haircolour = np.unique(hp.Hair_colour.values.tolist())
 haircolour = [x for x in haircolour if str(x) != 'nan'] # remove 'nan'
 
-eyecolour_index = 3
+# get the unique eye colour values
+eyecolour_index = 3 # for future indexing of each house list
 eyecolour = np.unique(hp.Eye_colour.values.tolist())
 eyecolour = [x for x in eyecolour if str(x) != 'nan'] # remove 'nan'
 
-loyalty_index = 4
+# get the unique loyalty values
+loyalty_index = 4 # for future indexing of each house list
 loyalty = np.unique(hp.Loyalty.values.tolist())
 loyalty = [x for x in loyalty if str(x) != 'nan'] # remove 'nan'
 
 def appendfunc(list_g,  list_h, list_r, list_s, row):
-    '''append the number of people with the same trait & house (which is "row") to list, "list_g", "list_h", "list_r", "list_s"
-    Args: list_g(list), list_h(list), list_r(list), list_s(list) - lists, to which the row will be appended to
+    '''append the number of people that share the same trait (e.g., gender, hair colour) & house to respective lists
+    Args: list_g(list) - list for gryffindor to which row gets appended
+          list_h(list) - list for hufflepuff to which row gets appended
+          list_r(list) - list for ravenclaw to which row gets appended
+          list_s(list) - list for slytherin to which row gets appended
           row(int) - number of people with the same trait & house '''
+    
     if house == 'Gryffindor':
         list_g.append(row) 
     elif house == 'Hufflepuff':
@@ -109,9 +117,13 @@ def appendfunc(list_g,  list_h, list_r, list_s, row):
         list_s.append(row)
 
 def appendfunc2(list_g,  list_h, list_r, list_s):
-    '''append the lists of number of people with the same trait & house to lists, "gryffindor", "hufflepuff", "ravenclaw", "slytherin"
-    This is to make the list, "gryffindor", "hufflepuff", "ravenclaw", "slytherin", 2D lists.
-    Args: list_g(list), list_h(list), list_r(list), list_s(list): lists, which will be appended to gryffindor, hufflepuff, ravenclaw, slytherin'''    gryffindor.append(list_g)
+    '''append the lists containing the number of people with the same trait (e.g., gender, hair colour) & house to respective house list ("gryffindor", "hufflepuff", "ravenclaw", "slytherin"). The house lists are then 2D lists. 
+    Args: list_g(list) - list for gryffindor, containing amount of people with same trait, which gets appended to gryffindor
+          list_h(list) - list for hufflepuff, containing amount of people with same trait, which gets appended to hufflepuff
+          list_r(list) - list for ravenclaw, containing amount of people with same trait, which gets appended to ravenclaw
+          list_s(list) - list for slytherin, containing amount of people with same trait, which gets appended to slytherin '''
+    
+    gryffindor.append(list_g)
     hufflepuff.append(list_h)
     ravenclaw.append(list_r)
     slytherin.append(list_s)
@@ -127,9 +139,11 @@ for house in houselist:
     
         # reduce the dataframe from hp to df so that the column is house and row is gen
         df = hp.loc[(hp['House'] == house) & (hp['Gender'] == gen)]
-        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df   
+        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
+        # safe amount of different genders for the respective houses
         appendfunc(gryffindor_gender, hufflepuff_gender, ravenclaw_gender, slytherin_gender, num_row_df)
 
+# add list containing the information of the gender to the respective house list
 appendfunc2(gryffindor_gender, hufflepuff_gender, ravenclaw_gender, slytherin_gender)
 
 # inserting data into 2D list for bloodstatus with index 1
@@ -143,9 +157,11 @@ for house in houselist:
         
         # reduce the dataframe from hp to df so that the column is house and row is blood
         df = hp.loc[(hp['House'] == house) & (hp['Blood_status'] == blood)]
-        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df   
+        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df
+        # safe amount of different blood status for the respective house
         appendfunc(gryffindor_bloodstatus, hufflepuff_bloodstatus, ravenclaw_bloodstatus, slytherin_bloodstatus, num_row_df)
 
+# add lists containing the information of the blood status to the respective house list
 appendfunc2(gryffindor_bloodstatus, hufflepuff_bloodstatus, ravenclaw_bloodstatus, slytherin_bloodstatus)
 
 # inserting data into 2D list for haircolour with index 2
@@ -160,8 +176,10 @@ for house in houselist:
         # reduce the dataframe from hp to df so that the column is house and row is hair
         df = hp.loc[(hp['House'] == house) & (hp['Hair_colour'] == hair)]
         num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df    
+        # safe amount of different hair colours for the respective house
         appendfunc(gryffindor_haircolour, hufflepuff_haircolour, ravenclaw_haircolour, slytherin_haircolour, num_row_df)
 
+# add list containing the information of the hair colour to the respective house list
 appendfunc2(gryffindor_haircolour, hufflepuff_haircolour, ravenclaw_haircolour, slytherin_haircolour)
 
 # inserting data into 2D list for haircolour with index 3
@@ -175,9 +193,11 @@ for house in houselist:
         
         # reduce the dataframe from hp to df so that the column is house and row is eye
         df = hp.loc[(hp['House'] == house) & (hp['Eye_colour'] == eye)]
-        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df   
+        num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df 
+        # safe amount of different eye colours for the respective house
         appendfunc(gryffindor_eyecolour, hufflepuff_eyecolour, ravenclaw_eyecolour, slytherin_eyecolour, num_row_df)
 
+# add list containing the information of the eye colour to the respective house list
 appendfunc2(gryffindor_eyecolour, hufflepuff_eyecolour, ravenclaw_eyecolour, slytherin_eyecolour)
 
 # inserting data into 2D list for haircolour with index 4
@@ -192,8 +212,10 @@ for house in houselist:
         # reduce the dataframe from hp to df so that the column is house and row is loyal
         df = hp.loc[(hp['House'] == house) & (hp['Loyalty'] == loyal)]
         num_row_df = df.shape[0] # gives number of the row of the reduced dataframe df   
+        # safe amount of different loyalty for the respective house
         appendfunc(gryffindor_loyalty, hufflepuff_loyalty, ravenclaw_loyalty, slytherin_loyalty, num_row_df)
-
+        
+# add list containing the information of the loyalty to the respective house list
 appendfunc2(gryffindor_loyalty, hufflepuff_loyalty, ravenclaw_loyalty, slytherin_loyalty)
 
 def legend(fig, label):
