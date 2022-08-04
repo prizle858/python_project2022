@@ -13,6 +13,9 @@ Since distance doesn't belong to the most common libraries, here is the link for
 - Dataset: contains all dataset in csv form, e.g. Characters.csv, Harry Potter 1.csv, Harry Potter 2.csv, Harry Potter 3.csv
 - Rest: plotting.py and quiz.py will be imported to main.ipynb, which is the only thing you need to run in order to participate in our quiz!
 
+## Disclaimer
+Unfortunately, while using VS code we experienced some issues we were not able to resolve. Therefore, we would advice using JupyterLab or Jupyter Notebook. 
+
 ## Authors
 
 - Jessica Simon
